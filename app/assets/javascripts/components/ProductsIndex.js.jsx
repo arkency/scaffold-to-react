@@ -13,7 +13,7 @@ window.ProductsIndex = React.createClass({
                         <a href={this.props.products[i].edit_path}>Edit</a>
                     </td>
                     <td>
-                        <a href={this.props.products[i].destroy_path}>Destroy</a>
+                        <a href={this.props.products[i].destroy_path} data-method="DELETE" data-confirm="Are you sure?">Destroy</a>
                     </td>
                 </tr>
             );
