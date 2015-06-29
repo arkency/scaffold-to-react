@@ -1,6 +1,1 @@
-<h1>Editing Product</h1>
-
-<%= render 'form' %>
-
-<%= link_to 'Show', @product %> |
-<%= link_to 'Back', products_path %>
+<%= react_component 'ProductEdit', (render 'products/edit.json'), prerender: true %>
