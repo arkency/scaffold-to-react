@@ -6,7 +6,7 @@ This repository was intended to show a simple process of replacing your static v
 
 ## Rails meets React.js
 
-<img src="http://blog.arkency.com/assets/images/react-for-rails/cover-fit.png" alt="Rails meets React.js" width="33%" style="margin-right: 3em" align="left" />
+<img src="http://blog.arkency.com/assets/images/react-for-rails/cover-fit.png" alt="Rails meets React.js" width="33%" style="margin-right: 3em" align="right" />
 
 **For the price of $49 you get:**
 
