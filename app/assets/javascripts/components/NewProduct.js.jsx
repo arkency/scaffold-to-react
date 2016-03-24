@@ -46,6 +46,7 @@ var ProductForm = React.createClass({
   render: function () {
     return (
       <form className={this.props.className}
+            onSubmit={this.props.onSubmit}
             id={this.props.id}
             action={this.props.endpoint}
             acceptCharset="UTF-8"
@@ -88,6 +89,9 @@ var NewProduct = React.createClass({
   changePrice: function (newPrice) {
     this.setState({ price: newPrice });
   },
+  submitForm: function (event) {
+    this.props.onSubmit(event, this.state);
+  },
   render: function () {
     return (<div>
       <h1>New Product</h1>
@@ -101,6 +105,7 @@ var NewProduct = React.createClass({
         price={this.state.price}
         onTitleChange={this.changeTitle}
         onPriceChange={this.changePrice}
+        onSubmit={this.submitForm}
         id="new_product" />
       <a href={this.props.backUrl}>Back</a>
     </div>);
@@ -111,12 +116,18 @@ function csrfToken () {
   return $("meta[name='csrf-token']").attr("content");
 };
 
+function submitNewProductForm(event, productData) {
+  event.preventDefault();
+  console.log(productData);
+}
+
 function renderNewProduct () {
   $("[data-view='NewProduct']").each(function () {
     var dataset = $(this).data();
     ReactDOM.render(<NewProduct endpoint={dataset.endpoint}
                                 backUrl={dataset.backUrl}
-                                csrfToken={csrfToken()} />, this);
+                                csrfToken={csrfToken()}
+                                onSubmit={submitNewProductForm} />, this);
   });
 };
 
