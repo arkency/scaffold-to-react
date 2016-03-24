@@ -18,6 +18,9 @@ var RailsHiddenInputs = React.createClass({
 });
 
 var ResourceField = React.createClass({
+  handleChange: function (event) {
+    this.props.onChange(event.target.value);
+  },
   render: function () {
     return (
       <div className="field">
@@ -25,7 +28,9 @@ var ResourceField = React.createClass({
         <br />
         <input type={this.props.type}
                name={this.fieldName()}
-               id={this.fieldId()} />
+               id={this.fieldId()}
+               value={this.props.value}
+               onChange={this.handleChange} />
       </div>
     );
   },
@@ -51,11 +56,15 @@ var ProductForm = React.createClass({
             resource="product"
             field="title"
             name="Title"
+            value={this.props.title}
+            onChange={this.props.onTitleChange}
             type="text" />
         <ResourceField
             resource="product"
             field="price"
             name="Price"
+            value={this.props.price}
+            onChange={this.props.onPriceChange}
             type="number" />
         <div className="actions">
             <input type="submit"
@@ -67,6 +76,18 @@ var ProductForm = React.createClass({
 });
 
 var NewProduct = React.createClass({
+  getInitialState: function () {
+    return {
+      title: "",
+      price: 0.0
+    };
+  },
+  changeTitle: function (newTitle) {
+    this.setState({ title: newTitle });
+  },
+  changePrice: function (newPrice) {
+    this.setState({ price: newPrice });
+  },
   render: function () {
     return (<div>
       <h1>New Product</h1>
@@ -76,6 +97,10 @@ var NewProduct = React.createClass({
         buttonLabel="Create Product"
         csrfToken={this.props.csrfToken}
         className="new_product"
+        title={this.state.title}
+        price={this.state.price}
+        onTitleChange={this.changeTitle}
+        onPriceChange={this.changePrice}
         id="new_product" />
       <a href={this.props.backUrl}>Back</a>
     </div>);
