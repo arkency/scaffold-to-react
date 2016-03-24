@@ -118,7 +118,24 @@ function csrfToken () {
 
 function submitNewProductForm(event, productData) {
   event.preventDefault();
-  console.log(productData);
+  var request = $.ajax({
+    url: "/products",
+    type: "post",
+    headers: {
+      "Content-Type": "application/json",
+      "Accept": "application/json"
+    },
+    processData: false,
+    data: JSON.stringify({ product: productData })
+  });
+
+  request.success(function (data) {
+    alert("Success! Received data: " + JSON.stringify(data));
+  });
+
+  request.fail(function () {
+    alert("Request failed :(");
+  });
 }
 
 function renderNewProduct () {
