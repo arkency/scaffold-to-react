@@ -2,6 +2,21 @@ var React = window.React;
 var ReactDOM = window.ReactDOM;
 var $ = window.$;
 
+var RailsHiddenInputs = React.createClass({
+  render: function () {
+    return (
+      <div>
+          <input name="utf8"
+                 type="hidden"
+                 value="✓" />
+          <input type="hidden"
+                 name="authenticity_token"
+                 value={this.props.csrfToken} />
+      </div>
+    );
+  }
+});
+
 var ProductForm = React.createClass({
   render: function () {
     return (
@@ -10,12 +25,8 @@ var ProductForm = React.createClass({
             action={this.props.endpoint}
             acceptCharset="UTF-8"
             method={this.props.method}>
-        <input name="utf8"
-               type="hidden"
-               value="✓" />
-        <input type="hidden"
-               name="authenticity_token"
-               value={this.props.csrfToken} />
+        <RailsHiddenInputs
+            csrfToken={this.props.csrfToken} />
         <div className="field">
             <label htmlFor="product_title">Title</label>
             <br />
