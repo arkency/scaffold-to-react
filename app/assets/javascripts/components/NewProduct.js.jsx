@@ -80,7 +80,9 @@ var NewProduct = React.createClass({
   getInitialState: function () {
     return {
       title: "",
-      price: 0.0
+      price: 0.0,
+      alertType: "",
+      alertMessage: ""
     };
   },
   changeTitle: function (newTitle) {
@@ -90,11 +92,15 @@ var NewProduct = React.createClass({
     this.setState({ price: newPrice });
   },
   submitForm: function (event) {
-    this.props.onSubmit(event, this.state);
+    this.props.onSubmit(event, this.state, this.setAlert);
+  },
+  setAlert: function (type, message) {
+    this.setState({ alertType: type, alertMessage: message });
   },
   render: function () {
     return (<div>
       <h1>New Product</h1>
+      <p id={this.state.alertType}>{this.state.alertMessage}</p>
       <ProductForm
         endpoint={this.props.endpoint}
         method="POST"
@@ -116,7 +122,7 @@ function csrfToken () {
   return $("meta[name='csrf-token']").attr("content");
 };
 
-function submitNewProductForm(endpoint, event, productData) {
+function submitNewProductForm(endpoint, event, productData, setAlert) {
   event.preventDefault();
   var request = $.ajax({
     url: endpoint,
@@ -130,11 +136,12 @@ function submitNewProductForm(endpoint, event, productData) {
   });
 
   request.success(function (data) {
-    alert("Success! Received data: " + JSON.stringify(data));
+    setAlert("notice", "Product has been successfully created. Data: " +
+             JSON.stringify(data));
   });
 
   request.fail(function () {
-    alert("Request failed :(");
+    setAlert("error", "Product failed to create :(.");
   });
 }
 
