@@ -16,7 +16,7 @@ var NewProduct = React.createClass({
                value="✓" />
         <input type="hidden"
                name="authenticity_token"
-               value="hmVLtrYUHZ4/AK2IjtxReyPdVYNwI0MoqHwkJB2dpRDLSIUFM8R2ftPjqnC5TH2lKHo5Opta7KB583hLchywJA==" />
+               value={this.props.csrfToken} />
         <div className="field">
           <label htmlFor="product_title">Title</label>
           <br />
@@ -42,15 +42,20 @@ var NewProduct = React.createClass({
   }
 });
 
+function csrfToken () {
+  return $("meta[name='csrf-token']").attr("content");
+};
+
 function renderNewProduct () {
   $("[data-view='NewProduct']").each(function () {
     var dataset = $(this).data();
     ReactDOM.render(<NewProduct endpoint={dataset.endpoint}
-                                backUrl={dataset.backUrl} />, this);
+                                backUrl={dataset.backUrl}
+                                csrfToken={csrfToken()} />, this);
   });
-}
+};
 
-$(document).on('page:load', function() {
+$(document).on('page:load', function () {
   renderNewProduct();
 });
 
