@@ -8,7 +8,7 @@ var NewProduct = React.createClass({
       <h1>New Product</h1>
       <form className="new_product"
             id="new_product"
-            action="/products"
+            action={this.props.endpoint}
             acceptCharset="UTF-8"
             method="post">
         <input name="utf8"
@@ -37,14 +37,16 @@ var NewProduct = React.createClass({
                  value="Create Product" />
         </div>
       </form>
-      <a href="/products">Back</a>
+      <a href={this.props.backUrl}>Back</a>
     </div>);
   }
 });
 
 function renderNewProduct () {
   $("[data-view='NewProduct']").each(function () {
-    ReactDOM.render(<NewProduct />, this);
+    var dataset = $(this).data();
+    ReactDOM.render(<NewProduct endpoint={dataset.endpoint}
+                                backUrl={dataset.backUrl} />, this);
   });
 }
 
