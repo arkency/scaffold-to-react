@@ -2,15 +2,14 @@ var React = window.React;
 var ReactDOM = window.ReactDOM;
 var $ = window.$;
 
-var NewProduct = React.createClass({
+var ProductForm = React.createClass({
   render: function () {
-    return (<div>
-      <h1>New Product</h1>
-      <form className="new_product"
-            id="new_product"
+    return (
+      <form className={this.props.className}
+            id={this.props.id}
             action={this.props.endpoint}
             acceptCharset="UTF-8"
-            method="post">
+            method={this.props.method}>
         <input name="utf8"
                type="hidden"
                value="✓" />
@@ -18,25 +17,39 @@ var NewProduct = React.createClass({
                name="authenticity_token"
                value={this.props.csrfToken} />
         <div className="field">
-          <label htmlFor="product_title">Title</label>
-          <br />
-          <input type="text"
-                 name="product[title]"
-                 id="product_title" />
+            <label htmlFor="product_title">Title</label>
+            <br />
+            <input type="text"
+                   name="product[title]"
+                   id="product_title" />
         </div>
         <div className="field">
-          <label htmlFor="product_price">Price</label>
-          <br />
-          <input type="number"
-                 name="product[price]"
-                 id="product_price" />
+            <label htmlFor="product_price">Price</label>
+            <br />
+            <input type="number"
+                   name="product[price]"
+                   id="product_price" />
         </div>
         <div className="actions">
-          <input type="submit"
-                 name="commit"
-                 value="Create Product" />
+            <input type="submit"
+                   name="commit"
+                   value={this.props.buttonLabel} />
         </div>
-      </form>
+      </form>);
+  }
+});
+
+var NewProduct = React.createClass({
+  render: function () {
+    return (<div>
+      <h1>New Product</h1>
+      <ProductForm
+        endpoint={this.props.endpoint}
+        method="POST"
+        buttonLabel="Create Product"
+        csrfToken={this.props.csrfToken}
+        className="new_product"
+        id="new_product" />
       <a href={this.props.backUrl}>Back</a>
     </div>);
   }
