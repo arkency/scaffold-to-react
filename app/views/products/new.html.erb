@@ -3,4 +3,6 @@
 <%= render 'form' %>
 
 <%= link_to 'Back', products_path %>
-<div data-view="NewProduct"></div>
+<div data-view="NewProduct"
+     data-back-url="<%= products_path -%>"
+     data-endpoint="<%= products_path(@product) -%>"></div>
