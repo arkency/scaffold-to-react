@@ -116,10 +116,10 @@ function csrfToken () {
   return $("meta[name='csrf-token']").attr("content");
 };
 
-function submitNewProductForm(event, productData) {
+function submitNewProductForm(endpoint, event, productData) {
   event.preventDefault();
   var request = $.ajax({
-    url: "/products",
+    url: endpoint,
     type: "post",
     headers: {
       "Content-Type": "application/json",
@@ -141,10 +141,11 @@ function submitNewProductForm(event, productData) {
 function renderNewProduct () {
   $("[data-view='NewProduct']").each(function () {
     var dataset = $(this).data();
+    var boundSubmitForm = submitNewProductForm.bind(undefined, dataset.endpoint);
     ReactDOM.render(<NewProduct endpoint={dataset.endpoint}
                                 backUrl={dataset.backUrl}
                                 csrfToken={csrfToken()}
-                                onSubmit={submitNewProductForm} />, this);
+                                onSubmit={boundSubmitForm} />, this);
   });
 };
 
