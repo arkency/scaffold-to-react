@@ -42,8 +42,16 @@ var NewProduct = React.createClass({
   }
 });
 
-$(function () {
+function renderNewProduct () {
   $("[data-view='NewProduct']").each(function () {
     ReactDOM.render(<NewProduct />, this);
   });
+}
+
+$(document).on('page:load', function() {
+  renderNewProduct();
+});
+
+$(function () {
+  renderNewProduct();
 });
