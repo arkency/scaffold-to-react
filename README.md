@@ -4,9 +4,11 @@ This repository was intended to show a simple process of replacing your static v
 
 **Interested in learning React.js? We got a book about it.**
 
-## Rails meets React.js
+## Update: NewProduct component again, with newest Rails and `react-rails`:
 
-<img src="http://blog.arkency.com/assets/images/react-for-rails/cover-fit.png" alt="Rails meets React.js" width="33%" style="margin-right: 3em" align="right" />
+Be sure to check the [`newest-20160324`](https://github.com/arkency/scaffold-to-react/commits/newest-20160324) branch!
+
+## Rails meets React.js
 
 **For the price of $49 you get:**
 
