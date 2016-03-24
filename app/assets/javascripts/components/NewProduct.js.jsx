@@ -17,6 +17,26 @@ var RailsHiddenInputs = React.createClass({
   }
 });
 
+var ResourceField = React.createClass({
+  render: function () {
+    return (
+      <div className="field">
+        <label htmlFor={this.fieldId()}>{this.props.name}</label>
+        <br />
+        <input type={this.props.type}
+               name={this.fieldName()}
+               id={this.fieldId()} />
+      </div>
+    );
+  },
+  fieldId: function () {
+    return this.props.resource + "_" + this.props.field;
+  },
+  fieldName: function () {
+    return this.props.resource + "[" + this.props.field + "]";
+  }
+});
+
 var ProductForm = React.createClass({
   render: function () {
     return (
@@ -27,20 +47,16 @@ var ProductForm = React.createClass({
             method={this.props.method}>
         <RailsHiddenInputs
             csrfToken={this.props.csrfToken} />
-        <div className="field">
-            <label htmlFor="product_title">Title</label>
-            <br />
-            <input type="text"
-                   name="product[title]"
-                   id="product_title" />
-        </div>
-        <div className="field">
-            <label htmlFor="product_price">Price</label>
-            <br />
-            <input type="number"
-                   name="product[price]"
-                   id="product_price" />
-        </div>
+        <ResourceField
+            resource="product"
+            field="title"
+            name="Title"
+            type="text" />
+        <ResourceField
+            resource="product"
+            field="price"
+            name="Price"
+            type="number" />
         <div className="actions">
             <input type="submit"
                    name="commit"
